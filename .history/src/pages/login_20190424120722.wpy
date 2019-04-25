@@ -1,0 +1,39 @@
+<template>
+  <view class="login">
+    <text>登录</text>
+    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '登录'
+    }
+    components = {
+      toast: Toast
+    }
+
+    data = {
+    }
+
+    methods = {
+      bindGetUserInfo(e) {
+        console.log(this.globleData)
+        console.log(e)
+      }
+    }
+
+    onLoad() {
+      console.log('login')
+    }
+  }
+</script>
+
+<style lang="less">
+  
+</style>

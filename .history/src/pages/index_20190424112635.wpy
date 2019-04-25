@@ -1,0 +1,49 @@
+<template>
+  <view class="container">
+    <text> 啊上单奥术大师大所奥术大师多</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '沙雕'
+    }
+    components = {
+      toast: Toast
+    }
+
+    data = {
+      
+    }
+
+    methods = {
+      
+    }
+
+    onLoad() {
+      let self = this
+      this.$parent.getUserInfo(function (userInfo) {
+        if (userInfo) {
+          self.userInfo = userInfo
+        }
+        self.normalTitle = '标题已被修改'
+
+        self.setTimeoutTitle = '标题三秒后会被修改'
+        setTimeout(() => {
+          self.setTimeoutTitle = '到三秒了'
+          self.$apply()
+        }, 3000)
+
+        self.$apply()
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+  
+</style>

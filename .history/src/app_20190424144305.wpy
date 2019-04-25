@@ -1,0 +1,67 @@
+<style lang="less">
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+import { setStore } from 'wepy-redux'
+import configStore from './store'
+
+const store = configStore()
+setStore(store)
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index',
+      'pages/my'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    }
+  }
+
+  globalData = {
+    userInfo: null
+  }
+
+  constructor () {
+    super()
+    this.use('promisify')
+    this.use('requestfix')
+  }
+
+  onLaunch() {
+    this.getUserInfo()
+  }
+
+  getUserInfo() {
+    console.log('asdssssss')
+    wepy.getSetting()
+      .then((res) => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wepy.getUserInfo()
+            .then((info) => {
+              this.globalData.userInfo = info.userInfo
+            })
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+</script>

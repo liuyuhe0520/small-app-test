@@ -1,0 +1,64 @@
+<template>
+  <view class="index-container">
+    <text> 啊上单奥术大师大所奥术大师多</text>
+    <view class="to-my">
+      <navigator url="/pages/my">我的</navigator>
+    </view>
+    <view class="add-new">
+      <navigator url="/pages/my"></navigator>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '沙雕'
+    }
+    components = {
+      toast: Toast
+    }
+
+    data = {
+    }
+
+    methods = {
+    }
+
+    onLoad() {
+    }
+  }
+</script>
+
+<style lang="less">
+.index-container {
+  .to-my {
+    position: fixed;
+    right: 10rpx;
+    bottom: 40rpx;
+    width: 80rpx;
+    height: 80rpx;
+    text-align: center;
+    line-height: 80rpx;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: #fff;
+    font-size: 24rpx;
+  }
+  .add-new {
+    position: fixed;
+    left: 10rpx;
+    bottom: 40rpx;
+    width: 80rpx;
+    height: 80rpx;
+    text-align: center;
+    border-radius: 50%;
+    background-color: oran;
+    color: #fff;
+    font-size: 24rpx;
+  }
+}
+</style>

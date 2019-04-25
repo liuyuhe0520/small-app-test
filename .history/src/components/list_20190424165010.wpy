@@ -1,0 +1,29 @@
+<template>
+  <view class="list">
+    <repeat for="{{list}}" index="index" item="item" key="index">
+      <view @tap="tap" class="mylist">
+        <text>{{item.id}}</text>: {{item.title}}
+      </view>
+    </repeat>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class List extends wepy.component {
+    data = {
+    }
+
+    props = {
+      list: []
+    }
+
+    methods = {
+    }
+
+    onLoad () {
+    }
+  }
+</script>
+<style lang="less">
+</style>

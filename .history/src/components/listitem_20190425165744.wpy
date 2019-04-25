@@ -1,0 +1,129 @@
+<template>
+  <view class="list-item">
+    <view class="promulgator-info">
+      <image src="{{detail.promulgatorInfo.avatar}}"></image>
+      <text>{{detail.promulgatorInfo.name}}</text>
+    </view>
+    <view
+      class="content"
+    >
+      <view class="content-title">{{detail.contentInfo.title}}</view>
+      <view class="content-list">
+        <view
+          class="content-item {{detail.contentInfo.resourceList.length > 1 ? 'item-more': ''}}"
+          wx:for="{{detail.contentInfo.resourceList}}"
+          wx:key="{{index}}"
+          catchtap
+        >
+          <image
+            wx:if="{{item.type === 'image'}}"
+            src="{{item.source}}"
+            mode="widthFix"
+            bindtap="priviewImage({{item.source}})"
+          >
+          </image>
+          <video
+            wx:if="{{item.type === 'video'}}"
+            src="{{item.source}}"
+            controls
+            danmu-list
+            danmu-btn
+            enable-danmu
+            loop
+            title="{{detail.contentInfo.title}}"
+          >
+          </video>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class ListItem extends wepy.component {
+    props = {
+      detail: {
+        type: Object,
+        default: {}
+      }
+    }
+
+    data = {
+      danmuList: []
+    }
+
+    methods = {
+      priviewImage(nowItem, event) {
+        wepy.previewImage({
+          current: nowItem,
+          urls: this.detail.contentInfo.resourceList.map(i => i.source)
+        })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    }
+
+    onLoad() {
+      console.log(this.detail, 'asdsssqweqeqwe12312')
+    }
+  }
+</script>
+<style lang="less">
+.list-item {
+  padding: 20rpx;
+  margin: 10rpx 0;
+  background-color: #fff;
+  .promulgator-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 28rpx;
+    color: #aaa;
+    margin-bottom: 10rpx;
+    &>image {
+      width: 60rpx;
+      height: 60rpx;
+      border-radius: 50%;
+      margin-right: 20rpx;
+    }
+  }
+  .content {
+    .content-title {
+      font-size: 32rpx;
+      margin-bottom: 10rpx;
+      white-space: pre-wrap;
+      // 多行打点 start
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; //行数
+      -webkit-box-orient: vertical;
+      // 多行打点 end
+    }
+    .content-list {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      image {
+        width: 100%;
+      }
+      video {
+        width: 100%;
+      }
+      .content-item {
+        width: 100%;
+        margin: 0 10rpx 10rpx 0;
+        max-height: 500rpx;
+        overflow: hidden;
+      }
+      .item-more {
+        width: 30%;
+      }
+    }
+  }
+}
+</style>

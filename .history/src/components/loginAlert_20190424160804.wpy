@@ -1,0 +1,27 @@
+<style type="less">
+
+</style>
+<template>
+  <view class="login-alert">
+    
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Group extends wepy.component {
+    props = {
+      isShow: false
+    }
+
+    onLoad() {
+    }
+
+    methods = {
+      tap () {
+        this.grouplist.name = `Parent Random(${Math.random()})`
+        console.log(`Clicked Group ${this.$index}, ID is ${this.grouplist.id}`)
+      }
+    }
+  }
+</script>

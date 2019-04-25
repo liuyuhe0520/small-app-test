@@ -1,0 +1,75 @@
+<template>
+  <view class="login">
+    <view wx:if="{{userInfo}}">
+      <open-data type="userAvatarUrl"></open-data>
+      <open-data type="userNickName"></open-data>
+    </view>
+    <view wx:else class="no-login">
+      <button
+        open-type="getUserInfo"
+        bindgetuserinfo="bindUserInfo"
+        plain
+      >
+        <image src="/static/no-login-icon.png"></image>
+        <view class="login-tip">
+          <text>未授权</text>
+          <text>点击获取微信授权</text>
+        </view>
+      </button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+
+  export default class My extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的'
+    }
+    components = {
+      toast: Toast
+    }
+
+    methods = {
+      bindUserInfo(info) {
+        this.$parent.globalData.userInfo = info.detail.userInfo
+        this.userInfo = this.$parent.globalData.userInfo
+        this.$apply()
+      }
+    }
+
+    data = {
+      userInfo: null
+    }
+
+    onLoad() {
+      this.userInfo = this.$parent.globalData.userInfo
+      console.log('my')
+      console.log(this.$parent.globalData.userInfo)
+    }
+  }
+</script>
+
+<style lang="less">
+.no-login {
+  margin: 10rpx 0;
+  border-top: 1rpx solid #ccc;
+  border-bottom: 1rpx solid #ccc;
+  button {
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    image {
+      width: 300rpx;
+      height: 250rpx;
+    }
+    .login-tip {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+</style>

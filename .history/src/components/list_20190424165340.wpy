@@ -1,0 +1,29 @@
+<template>
+  <view class="list">
+    <repeat for="{{list}}" index="index" item="item" key="index">
+      <navigator class="list-item" src="{{item.link}}">
+        <text>{{item.name}}</text>
+      </navigator>
+    </repeat>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+
+export default class List extends wepy.component {
+  data = {
+  }
+
+  props = {
+    list: []
+  }
+
+  methods = {
+  }
+
+  onLoad () {
+  }
+}
+</script>
+<style lang="less">
+</style>

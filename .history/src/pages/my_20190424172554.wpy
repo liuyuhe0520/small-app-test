@@ -1,0 +1,173 @@
+<template>
+  <view class="my-container">
+    <view wx:if="{{userInfo}}" class="login-info">
+      <view class="avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class="login-user-info">
+        <open-data type="userNickName" class="name"></open-data>
+        <text>0发帖  0收藏</text>
+      </view>
+    </view>
+    <view wx:else class="no-login">
+      <button
+        open-type="getUserInfo"
+        bindgetuserinfo="bindUserInfo"
+        plain
+      >
+        <image src="/static/no-login-icon.png" mode="aspectFit"></image>
+        <view class="login-tip">
+          <text class="tip-big">未授权</text>
+          <text>点击获取微信授权</text>
+        </view>
+      </button>
+    </view>
+    <view class="list">
+      <repeat for="{{list}}" index="index" item="item" key="index">
+        <navigator class="list-item" url="{{item.link}}">
+          <text class="name">{{item.name}}</text>
+          <text class="info">{{item.info}}</text>
+        </navigator>
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+
+  export default class My extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的'
+    }
+    components = {
+      toast: Toast
+    }
+
+    methods = {
+      bindUserInfo(info) {
+        this.$parent.globalData.userInfo = info.detail.userInfo
+        this.userInfo = this.$parent.globalData.userInfo
+        this.$apply()
+      }
+    }
+
+    data = {
+      userInfo: null,
+      list: [
+        {
+          name: '我的发帖',
+          link: '/pages/index',
+          info: '0'
+        },
+        {
+          name: '浏览历史',
+          link: '/pages/index',
+          info: '0'
+        },
+        {
+          name: '我的收藏',
+          link: '/pages/index',
+          info: '0'
+        }
+      ]
+    }
+
+    onLoad() {
+      this.userInfo = this.$parent.globalData.userInfo
+    }
+  }
+</script>
+
+<style lang="less">
+.my-container {
+  background-color: #f5f5f5;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  .login-info {
+    display: flex;
+    flex-direction: row;
+    background-color: #8554FF;
+    margin: 10rpx 0;
+    padding: 10rpx 20rpx;
+    .avatar {
+      width: 150rpx;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20rpx;
+    }
+    .login-user-info {
+      font-size: 24rpx;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .name {
+        font-size: 36rpx;
+      }
+    }
+  }
+  .no-login {
+    margin: 10rpx 0;
+    background-color: #8554FF;
+    button {
+      border: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      image {
+        width: 200rpx;
+        height: 150rpx;
+      }
+      .login-tip {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        line-height: 1.41;
+        font-size: 24rpx;
+        color: #fff;
+        .tip-big {
+          font-size: 32rpx;
+        }
+      }
+    }
+  }
+  .list {
+    background-color: #fff;
+    margin: 20rpx 0;
+    padding-left: 20rpx;
+    font-size: 32rpx;
+    .list-item {
+      height: 88rpx;
+      line-height: 88rpx;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      position: relative;
+      padding-right: 60rpx;
+      &:not(:last-child) {
+        border-bottom: 1rpx solid #ccc;
+      }
+      &::after {
+        content: "";
+        display: block;
+        width: 20rpx;
+        height: 20rpx;
+        border-right: 4rpx solid #eee;
+        border-bottom: 4rpx solid #eee;
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 50%;
+        margin-top: -10rpx;
+        right: 24rpx;
+      }
+      .info {
+        color: #ddd;
+      }
+    }
+  }
+}
+</style>

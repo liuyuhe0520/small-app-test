@@ -1,0 +1,109 @@
+<template>
+  <view class="my-container">
+    <view wx:if="{{userInfo}}" class="login-info">
+      <view class="avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class="login-user-info">
+        <open-data type="userNickName" class="name"></open-data>
+        <text>0发帖</text>
+      </view>
+    </view>
+    <view wx:else class="no-login">
+      <button
+        open-type="getUserInfo"
+        bindgetuserinfo="bindUserInfo"
+        plain
+      >
+        <image src="/static/no-login-icon.png" mode="aspectFit"></image>
+        <view class="login-tip">
+          <text class="tip-big">未授权</text>
+          <text>点击获取微信授权</text>
+        </view>
+      </button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+
+  export default class My extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的'
+    }
+    components = {
+      toast: Toast
+    }
+
+    methods = {
+      bindUserInfo(info) {
+        this.$parent.globalData.userInfo = info.detail.userInfo
+        this.userInfo = this.$parent.globalData.userInfo
+        this.$apply()
+      }
+    }
+
+    data = {
+      userInfo: null
+    }
+
+    onLoad() {
+      this.userInfo = this.$parent.globalData.userInfo
+    }
+  }
+</script>
+
+<style lang="less">
+.my-container {
+  .login-info {
+    display: flex;
+    flex-direction: row;
+    background-color: #8554FF;
+    margin: 10rpx 0;
+    .avatar {
+      width: 200rpx;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 20rpx;
+    }
+    .login-user-info {
+      font-size: 24rpx;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .name {
+        font-size: 36rpx;
+      }
+    }
+  }
+  .no-login {
+    margin: 10rpx 0;
+    background-color: #8554FF;
+    button {
+      border: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      image {
+        width: 200rpx;
+        height: 150rpx;
+      }
+      .login-tip {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        line-height: 1.41;
+        font-size: 24rpx;
+        color: #fff;
+        .tip-big {
+          font-size: 32rpx;
+        }
+      }
+    }
+  }
+}
+</style>

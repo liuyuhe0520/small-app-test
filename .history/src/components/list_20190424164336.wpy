@@ -1,0 +1,31 @@
+<style lang="less">
+  .mylist:odd {
+    color: red;
+  }
+  .mylist:even {
+    color: green;
+  }
+</style>
+<template>
+  <view class="list">
+    <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+      <view @tap="tap" class="mylist">
+        <text>{{item.id}}</text>: {{item.title}}
+      </view>
+    </block>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class List extends wepy.component {
+    data = {
+    }
+
+    methods = {
+    }
+
+    onLoad () {
+    }
+  }
+</script>

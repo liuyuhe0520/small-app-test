@@ -1,0 +1,34 @@
+<template>
+  <view class="list-item">
+    <view class="promulgator-info">
+      <image src="{{detail.promulgatorInfo.avatar}}"></image>
+      <text>{{detail.promulgatorInfo.name}}</text>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class ListItem extends wepy.component {
+    props = {
+      detail: {
+        type: Object,
+        default: {}
+      }
+    }
+
+    data = {
+    }
+
+    methods = {
+    }
+
+    onLoad() {
+      console.log(this.detail, 'asdsssqweqeqwe12312')
+    }
+  }
+</script>
+<style type="less">
+.list-item {
+}
+</style>

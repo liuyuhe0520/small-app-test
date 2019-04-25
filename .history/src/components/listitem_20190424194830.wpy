@@ -1,0 +1,45 @@
+<template>
+  <view class="list-item">
+    <view class="promulgator-info">
+      <image src="{{detail.promulgatorInfo.avatar}}"></image>
+      <text>{{detail.promulgatorInfo.name}}</text>
+    </view>
+    <view
+      class="content"
+    >
+      <text>{{detail.contentInfo.title}}</text>
+      <view
+        wx:for="{{detail.contentInfo.resourceList}}"
+        class="content-list"
+      >
+        <image wx:if="{{item.type === 'image'}}" src="{{item.source}}"></image>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class ListItem extends wepy.component {
+    props = {
+      detail: {
+        type: Object,
+        default: {}
+      }
+    }
+
+    data = {
+    }
+
+    methods = {
+    }
+
+    onLoad() {
+      console.log(this.detail, 'asdsssqweqeqwe12312')
+    }
+  }
+</script>
+<style type="less">
+.list-item {
+}
+</style>

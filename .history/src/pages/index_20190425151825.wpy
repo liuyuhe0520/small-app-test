@@ -1,0 +1,117 @@
+<template>
+  <view class="index-container">
+    <list :items.sync="listData"></list>
+    <view class="to-my">
+      <navigator url="/pages/my">我的</navigator>
+    </view>
+    <view class="add-new">
+      <navigator style="width: 100%; height: 100%;" url="/pages/my"></navigator>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import List from '../components/listContent'
+
+export default class Index extends wepy.page {
+  config = {
+    enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark',
+    navigationBarTitleText: '沙雕'
+  }
+  components = {
+    list: List
+  }
+
+  data = {
+    listData: [
+      {
+        link: '/pages/my',
+        promulgatorInfo: {
+          avatar: 'https://wx.qlogo.cn/mmopen/vi_32/6g3QlX6MAf1Y0kox7kmHBBwEiaIzrUhTtKbcxfTJcO9cPgttbEAzQfPtRjIzricz5khnicEOiaTy4uZiaY5SyqLBL0g/132',
+          name: '我是谁🤔 我在哪🤔 我要干嘛'
+        },
+        contentInfo: {
+          title: 'qwe啥答案全文请师傅我欧文后市 /n 阿卡把家里的部分将全部服务就去喊人 方便你骄傲不是覅黄飞鸿 上班都垃圾啊不符合全球阿hi迪欧文化为日本不好说不定 全部放弃而维护人发货啦不是你发货方维护软件和农村结婚前二和环境违法',
+          resourceList: [
+            {
+              type: 'image',
+              source: 'https://wx.qlogo.cn/mmopen/vi_32/6g3QlX6MAf1Y0kox7kmHBBwEiaIzrUhTtKbcxfTJcO9cPgttbEAzQfPtRjIzricz5khnicEOiaTy4uZiaY5SyqLBL0g/132'
+            },
+            {
+              type: 'image',
+              source: 'https://wx.qlogo.cn/mmopen/vi_32/6g3QlX6MAf1Y0kox7kmHBBwEiaIzrUhTtKbcxfTJcO9cPgttbEAzQfPtRjIzricz5khnicEOiaTy4uZiaY5SyqLBL0g/132'
+            },
+            {
+              type: 'image',
+              source: 'https://wx.qlogo.cn/mmopen/vi_32/6g3QlX6MAf1Y0kox7kmHBBwEiaIzrUhTtKbcxfTJcO9cPgttbEAzQfPtRjIzricz5khnicEOiaTy4uZiaY5SyqLBL0g/132'
+            }
+          ]
+        }
+      }
+    ]
+  }
+
+  onPullDownRefresh() {
+    wepy.showNavigationBarLoading()
+    setTimeout(() => {
+      console.log('geted')
+      wepy.stopPullDownRefresh()
+      wepy.hideNavigationBarLoading()
+      this.$apply()
+    }, 3000)
+  }
+
+  methods = {
+  }
+
+  onLoad() {
+  }
+}
+</script>
+
+<style lang="less">
+.index-container {
+  .to-my {
+    position: fixed;
+    right: 10rpx;
+    bottom: 40rpx;
+    width: 80rpx;
+    height: 80rpx;
+    text-align: center;
+    line-height: 80rpx;
+    border-radius: 50%;
+    background-color: #f60;
+    color: #fff;
+    font-size: 28rpx;
+  }
+  .add-new {
+    position: fixed;
+    left: 10rpx;
+    bottom: 40rpx;
+    width: 80rpx;
+    height: 80rpx;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #00c0ff;
+    &::before, &::after {
+      content: "";
+      display: block;
+      background-color: #fff;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &::before {
+      width: 40rpx;
+      height: 4rpx;
+    }
+    &::after {
+      width: 4rpx;
+      height: 40rpx;
+    }
+  }
+}
+</style>
